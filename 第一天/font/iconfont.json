@@ -1,0 +1,23 @@
+{
+  "id": "2373010",
+  "name": "第一天练习web移动",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "12310633",
+      "name": "wifi",
+      "font_class": "wifi",
+      "unicode": "e8d6",
+      "unicode_decimal": 59606
+    },
+    {
+      "icon_id": "18641195",
+      "name": "电量1",
+      "font_class": "dianliang1",
+      "unicode": "e60b",
+      "unicode_decimal": 58891
+    }
+  ]
+}

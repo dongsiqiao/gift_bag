@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      table {
+        border: 1px solid black;
+        text-align: center;
+        border-collapse: collapse;
+        font-size: 16px;
+      }
+      td,
+      th {
+        height: 80px;
+        border: 1px solid black;
+        width: 250px;
+      }
+      th:nth-child(2) {
+        width: 1000px;
+      }
+      th:nth-child(4) {
+        width: 800px;
+      }
+      .red {
+        background-color: red;
+      }
+      .orange {
+        background-color: orange;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <my-table :list="goodsList">
+        <template slot-scope="scope">
+          <table>
+            <thead>
+              <tr>
+                <th>商品编号</th>
+                <th>商品名称</th>
+                <th>商品图片</th>
+                <th>商品描述</th>
+                <th>市场价</th>
+                <th>优惠价</th>
+                <th>库存数量</th>
+                <th>点击量</th>
+                <th>上架时间</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="item in scope.info ">
+                <td>{{item.id}}</td>
+                <td>{{item.title}}</td>
+                <td>
+                  <img :src="item.img_url" alt="" />
+                </td>
+                <td>{{item.zhaiyao}}</td>
+                <td>{{item.market_price}}</td>
+                <td>{{item.sell_price}}</td>
+                <td :class="[item.stock_quantity < 20 ? 'red' : item.stock_quantity < 100 ? 'orange' : '']">{{item.stock_quantity }}</td>
+                <td>{{item.click}}</td>
+                <td>{{item.add_time|format('yyyy-MM-dd')}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </template>
+      </my-table>
+    </div>
+
+    <script src="./js/vue2.5.17.js"></script>
+    <script src="./js/axios.js"></script>
+    <script>
+      Vue.component('my-table', {
+        props: ['list'],
+        template: `
+          <div>
+             <slot :info="list"></slot>
+          </div>
+        `
+      })
+
+      Vue.filter('format', function (value, arg) {
+        function dateFormat(date, format) {
+          if (typeof date === 'string') {
+            var mts = date.match(/(\/Date\((\d+)\)\/)/)
+            if (mts && mts.length >= 3) {
+              date = parseInt(mts[2])
+            }
+          }
+          date = new Date(date)
+          if (!date || date.toUTCString() == 'Invalid Date') {
+            return ''
+          }
+          var map = {
+            M: date.getMonth() + 1,
+            d: date.getDate()
+          }
+          format = format.replace(/([yMdhmsqS])+/g, function (all, t) {
+            var v = map[t]
+            if (v !== undefined) {
+              if (all.length > 1) {
+                v = '0' + v
+                v = v.substr(v.length - 2)
+              }
+              return v
+            } else if (t === 'y') {
+              return (date.getFullYear() + '').substr(4 - all.length)
+            }
+            return all
+          })
+          return format
+        }
+        return dateFormat(value, arg)
+      })
+
+      const app = new Vue({
+        el: '#app',
+        data: {
+          goodsList: []
+        },
+        created() {
+          axios({
+            method: 'get',
+            url: 'http://www.liulongbin.top:3005/api/getgoods',
+            params: {
+              pageindex: 0
+            }
+          }).then((res) => {
+            if (res.status !== 200) return console.log('获取列表失败')
+            this.goodsList = res.data.message
+            console.log(this.goodsList)
+          })
+        }
+      })
+    </script>
+  </body>
+</html>

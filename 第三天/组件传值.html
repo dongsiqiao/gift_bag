@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="./js/vue.js"></script>
+  </head>
+  <body>
+    <template id="bigSon"> </template>
+
+    <div id="app">
+      <div>父亲: 张</div>
+      <div>母亲: <input type="text" v-model="Mname" /></div>
+      <div>大儿子媳妇:{{Bsname}}</div>
+      <br />
+      <big-son :name="Mname" @nv="bigName"></big-son>
+      <min-son :name="Mname"></min-son>
+    </div>
+
+    <script>
+      let hub = new Vue()
+      const bigSon = {
+        props: ['name'],
+        data() {
+          return {
+            Bname: '赵'
+          }
+        },
+        methods: {
+          handle() {
+            this.$emit('nv', this.Bname)
+            hub.$emit('edit', this.Bname)
+          }
+        },
+        template: `
+        <div>
+          <div>大儿子: 张</div>
+           <div>妈妈: {{name}}</div>
+           <div>老婆: <input type="text" v-model="Bname" @input="handle" /></div>
+           <br/>
+        </div>
+        `
+      }
+      const minSon = {
+        props: ['name'],
+        data() {
+          return {
+            Bssname: '赵'
+          }
+        },
+        template: `
+        <div>
+           <div>二儿子:张</div>
+           <div>妈妈 : {{name}}</div>
+           <div>大嫂 : {{Bssname}}</div>
+        </div>
+        `,
+        mounted() {
+          hub.$on('edit', (val) => {
+            this.Bssname = val
+          })
+        }
+      }
+      const app = new Vue({
+        el: '#app',
+        data: {
+          Mname: '李',
+          Bsname: '赵'
+        },
+        methods: {
+          bigName(val) {
+            this.Bsname = val
+          }
+        },
+        components: {
+          bigSon,
+          minSon
+        }
+      })
+    </script>
+  </body>
+</html>

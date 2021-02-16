@@ -1,0 +1,25 @@
+一. 选择题
+
+1-5 babdd
+
+6-10 dbcab
+
+11-15 cacdc
+
+二. 简答题
+
+1. 利用冒泡阶段给父元素添加事件从而冒泡到子元素上
+2. 1. href 设置或返回完整URL
+   2. host 设置或返回主机名和当前URL的端口号
+   3. search 设置或返回从问好开始的URL
+   4. hash 设置或返回从井好开始的URL(锚)
+
+三. 代码题
+
+1和2 文件中
+
+3. 1. const obj = {}
+
+   2. const obj = newObject()
+
+   3. function Person() {}  new person()

@@ -1,0 +1,123 @@
+一.
+
+1、BOM和浏览器bai关系密切，duDOM和文档zhi有关，这里的文档指dao的是zhuan网页，也就是HTML文档。
+
+2、BOM是Browser Object Model的缩写，即浏览器对象模型。DOM是Document Object Model的缩写，即文档对象模型。
+
+3、BOM没有相关标准。DOM是W3C的标准。
+
+4、BOM的最根本对象是window。DOM最根本对象是document（实际上是window.document）。
+
+
+
+二.
+
+1、行内引入:  <开始标签 on+事件类型=“js代码”></结束标签>
+
+行内引入方式必须结合事件来使用，但是内部js和外部js可以不结合事件
+
+2、内部引入：在head或body中，定义script标签，然后在script标签里面写js代码
+
+3、外部引入：定义外部js文件(.js结尾的文件)
+
+<scripttype="text/javascript" src="demo.js">
+
+
+
+三.
+
+innerText属性将文本内容设置或返回为指定节点及其所有子节点的纯文本，而innerHTML属性将获取和设置元素中的纯文本或HTML内容。与InnerText不同，InnerHTML允许您使用HTML格式的文本，并且不会自动对文本进行编码和解码。
+
+
+
+四.
+
+1. 声明变量时内存分配不同
+2. 不同的内存分配带来不同的访问机制
+3. 复制变量时的不同
+4. 参数传递不同
+
+
+
+五.
+
+七种:   Undefined、Null、Boolean、Number、String、Symbol（es6新增，表示独一无二的值 ) 和 BigInt（es10新增）
+
+
+
+六.
+
+object、array、function、data...
+
+
+
+七.
+
+flase,  0,  null, 空字符串
+
+
+
+八.
+
+&& 逻辑与，可以理解为并且的意思.
+
+||  逻辑或，可以理解为或者的意思，也就是条件可以2取一
+
+！ 逻辑非,  取反
+
+
+
+九.
+
+1.null表示没有对象，即该处不应该有值
+
+2.undefined表示缺少值，即此处应该有值，但没有定义
+
+
+
+十.
+
+1. 手动设置变量的值或者对象某一个属性值为null（此时不赋值，会在后面的代码中进行赋值，相当于初始化。）
+2. 在JS的DOM元素获取中，如果没有获取到指定的元素对象，结果一般是null。
+3. Object.prototype.proto的值也是null。
+4. 在正则捕获的时候，如果没有捕获到结果，默认也是null。
+
+
+
+十一.
+
+1. 定义了形参，没有传实参，显示undefined
+
+2. 对象属性名不存在时，显示undefined
+
+3. 函数没有写返回值，即没有写return，拿到的是undefined
+
+4. 写了return，但没有赋值，拿到的是undefinednull和undefined转换成number数据类型
+
+
+
+十二.
+
+万物皆对象，对象是客观存在的事物，可以说任何客观存在的都是可以成为对象，一台电脑，一直钢笔，一个人，一辆轿车等等，都是可以成为对象。
+
+
+
+十三.
+
+typeof,   instancof,   constructor,   Object.prototype.toString.call();
+
+
+
+十四.
+
+break:while循环break是用于永久终止循环。即不执行本次循环中break后面的语句,直接跳出循环。
+
+continue:while循环continue是用于终止本次循环。即本次循环中continue后面的代码不执行,进行下一次循环的入口判断。
+
+
+
+十五.
+
+for...in 语句用于对数组或者对象的属性进行循环操作。
+
+for ... in 循环中的代码每执行一次，就会对数组的元素或者对象的属性进行一次操作。

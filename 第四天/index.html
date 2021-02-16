@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .commodity {
+        border: 1px solid #ccc;
+        padding: 10px;
+        margin: 10px;
+        display: flex;
+      }
+      .right {
+        padding: 10px 30px 10px;
+      }
+      a {
+        margin-top: 8px;
+        display: block;
+        text-decoration: none;
+        width: 70px;
+        height: 30px;
+        background-color: red;
+        color: white;
+        font-size: 14px;
+        line-height: 30px;
+        text-align: center;
+      }
+    </style>
+    <script src="./js/vue.js"></script>
+    <script src="./js/axios.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <goods-item :goods="goodsList"></goods-item>
+    </div>
+    <script>
+      Vue.component('goods-item', {
+        props: ['goods'],
+        data() {
+          return {
+            num: ''
+          }
+        },
+        template: `
+        <div>
+          <div class="commodity" v-for="item in goods" :key="item.id">
+              <img :src="item.img_url" alt="" />
+              <div class="right">
+                 <h2>{{item.title}}</h2>
+                 <p>上架时间:{{item.add_time}}</p>
+                 <p>库存数量:{{item.add_time}}</p>
+                 <p>￥{{item.sell_price}} <s>{{item.market_price}}</s></p>
+                 <div>购买数量:<input type="text" v-model="num" style="width: 50px" /></div>
+                 <a href="javascript;" @click.prevent="handle(item.id)">购买商品</a>
+              </div>
+          </div>
+        </div>
+        `,
+        methods: {
+          handle(id) {
+            location.href = `/buy?id=${id}&num=${this.num}`
+          }
+        }
+      })
+      const app = new Vue({
+        el: '#app',
+        data: {
+          goodsList: []
+        },
+        created() {
+          axios({
+            method: 'get',
+            url: 'http://www.liulongbin.top:3005/api/getgoods',
+            params: {
+              pageindex: 0
+            }
+          }).then((res) => {
+            if (res.status !== 200) return console.log('获取列表失败')
+            this.goodsList = res.data.message
+          })
+        }
+      })
+    </script>
+  </body>
+</html>
